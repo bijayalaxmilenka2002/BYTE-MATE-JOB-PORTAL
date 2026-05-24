@@ -1,0 +1,11 @@
+# Ignore all node_modules in all folders
+node_modules/
+
+# Ignore all secret environment variables
+.env
+
+# Ignore the physical PDFs uploaded to your backend
+backend/uploads/
+
+# Ignore system files
+.DS_Store
