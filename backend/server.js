@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
 require('dotenv').config();
 
 const http = require('http');
@@ -22,29 +23,35 @@ app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
-// ✅ THE FIX: Make the uploads folder publicly readable so employers can view the PDFs!
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Make uploads folder publicly readable and ensure it exists
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+}
+app.use('/uploads', express.static(uploadsDir));
 
-mongoose.connect(process.env.MONGO_URI)
+// Connect to MongoDB Atlas (uses environment variable with safe fallback)
+const mongoUri = process.env.MONGO_URI || 'mongodb+srv://bijayalaxmilenka48_db_user:Fwtj9JCF22M3dXUO@ridebuddy.twjpoqm.mongodb.net/bytemate?retryWrites=true&w=majority';
+mongoose.connect(mongoUri)
   .then(() => console.log("MongoDB successfully connected"))
   .catch((err) => console.log("Database connection error: ", err));
 
-// Routes
-app.use('/api/auth', require('./routes/authRoutes')); // Make sure this path is correct
-app.use('/api/network', require('./routes/connectionRoutes'));
+// Healthcheck routes for Render/Cloud monitoring
+app.get('/', (req, res) => {
+    res.json({ status: 'ok', service: 'ByteMate API & Live Chat Server' });
+});
+app.get('/health', (req, res) => res.status(200).send('OK'));
 
-// Add these missing lines back!
+// Routes
+app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/network', require('./routes/connectionRoutes'));
 app.use('/api/jobs', require('./routes/jobRoutes'));
 app.use('/api/match', require('./routes/matchRoutes'));
-console.log("✅ Job routes successfully loaded!");
+console.log("Job routes successfully loaded!");
 
 // Quick route to fetch chat history for a specific user
 app.get('/api/messages/:otherUserId', async (req, res) => {
     try {
-        // NOTE: If you have auth middleware, apply it here to get req.user.id safely. 
-        // For simplicity, passing both IDs in the query/params or decoding token is needed.
-        // Assuming your frontend passes token, you'd protect this route. 
-        // IF THIS FAILS, you need to add your authMiddleware and use req.user.id!
         const messages = await Message.find({
             $or: [
                 { sender: req.headers['userid'], receiver: req.params.otherUserId },
@@ -86,6 +93,6 @@ io.on('connection', (socket) => {
 });
 
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
     console.log(`Server and Live Chat are running on port ${PORT}`);
 });
