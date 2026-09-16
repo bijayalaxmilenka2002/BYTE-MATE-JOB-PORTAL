@@ -31,11 +31,7 @@ if (!fs.existsSync(uploadsDir)) {
 app.use('/uploads', express.static(uploadsDir));
 
 // Connect to MongoDB Atlas (uses environment variable with safe fallback)
-let mongoUri = process.env.MONGO_URI || 'mongodb+srv://bijayalaxmilenka48_db_user:Fwtj9JCF22M3dXUO@ridebuddy.twjpoqm.mongodb.net/bytemate?retryWrites=true&w=majority';
-if (mongoUri.includes('44etzyg.mongodb.net')) {
-    console.log('Detected offline cluster, switching to active cluster...');
-    mongoUri = 'mongodb+srv://bijayalaxmilenka48_db_user:Fwtj9JCF22M3dXUO@ridebuddy.twjpoqm.mongodb.net/bytemate?retryWrites=true&w=majority';
-}
+const mongoUri = process.env.MONGO_URI;
 mongoose.connect(mongoUri)
   .then(() => console.log("MongoDB successfully connected"))
   .catch((err) => console.log("Database connection error: ", err));
