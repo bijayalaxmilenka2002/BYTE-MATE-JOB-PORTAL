@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import { useState } from 'react';
 
 export default function ApplyModal({ job, onClose }) {
@@ -20,7 +21,7 @@ export default function ApplyModal({ job, onClose }) {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/match/analyze', {
+      const response = await fetch(`${API_BASE_URL}/api/match/analyze`, {
         method: 'POST', headers: { 'x-auth-token': token }, body: formData 
       });
       const data = await response.json();
@@ -44,7 +45,7 @@ export default function ApplyModal({ job, onClose }) {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/match/submit', {
+      const response = await fetch(`${API_BASE_URL}/api/match/submit`, {
         method: 'POST', headers: { 'x-auth-token': token }, body: formData 
       });
       if (response.ok) {

@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import { useState, useEffect } from 'react';
 
 export default function EmployerDashboard() {
@@ -10,7 +11,7 @@ export default function EmployerDashboard() {
       try {
         const token = localStorage.getItem('token');
         // Calls our secure, isolated backend route
-        const response = await fetch('http://localhost:5000/api/jobs/dashboard', {
+        const response = await fetch(`${API_BASE_URL}/api/jobs/dashboard`, {
           headers: { 'x-auth-token': token }
         });
         
@@ -77,7 +78,7 @@ export default function EmployerDashboard() {
                   // Handle both absolute (Cloudinary/AWS) and relative (Local) URLs safely
                   const fullResumeUrl = resumeLink?.startsWith('http') 
                     ? resumeLink 
-                    : `http://localhost:5000/${resumeLink}`;
+                    : `${API_BASE_URL}/${resumeLink}`;
 
                   return (
                     <div key={app._id} className="p-4 bg-gray-50 rounded-lg border border-gray-200 flex justify-between items-center">

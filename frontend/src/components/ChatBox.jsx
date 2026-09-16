@@ -1,8 +1,9 @@
+import { API_BASE_URL } from '../config';
 import { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 
 // Connect to our backend socket server
-const socket = io('http://localhost:5000');
+const socket = io(API_BASE_URL);
 
 export default function ChatBox({ receiver, currentUser, onClose }) {
   const [messages, setMessages] = useState([]);
@@ -25,7 +26,7 @@ export default function ChatBox({ receiver, currentUser, onClose }) {
     // 2. Fetch past conversation history from the database
     const fetchHistory = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/messages/${receiver._id}`, {
+        const res = await fetch(`${API_BASE_URL}/api/messages/${receiver._id}`, {
           headers: { 'x-auth-token': token }
         });
         const data = await res.json();

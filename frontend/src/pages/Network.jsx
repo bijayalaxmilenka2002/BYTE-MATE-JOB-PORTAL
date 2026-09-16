@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 
@@ -23,7 +24,7 @@ export default function Network() {
 
   useEffect(() => {
     if (!currentUserId) return;
-    socketRef.current = io('http://localhost:5000');
+    socketRef.current = io(API_BASE_URL);
     socketRef.current.emit('join_room', currentUserId);
 
     socketRef.current.on('receive_message', (newMessage) => {
@@ -42,7 +43,7 @@ export default function Network() {
 
   const loadNetworkData = async () => {
     try {
-      const netRes = await fetch('http://localhost:5000/api/network/network', {
+      const netRes = await fetch(`${API_BASE_URL}/api/network/network`, {
         headers: { 'x-auth-token': token }
       });
       if (netRes.ok) {
@@ -51,7 +52,7 @@ export default function Network() {
         setPendingRequests(netData.pendingRequests);
       }
 
-      const sugRes = await fetch('http://localhost:5000/api/network/suggested', {
+      const sugRes = await fetch(`${API_BASE_URL}/api/network/suggested`, {
         headers: { 'x-auth-token': token }
       });
       if (sugRes.ok) {
@@ -69,7 +70,7 @@ export default function Network() {
 
   const handleSendRequest = async (userId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/network/request/${userId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/network/request/${userId}`, {
         method: 'POST', headers: { 'x-auth-token': token }
       });
       if (res.ok) loadNetworkData(); 
@@ -78,7 +79,7 @@ export default function Network() {
 
   const handleAcceptRequest = async (userId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/network/accept/${userId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/network/accept/${userId}`, {
         method: 'POST', headers: { 'x-auth-token': token }
       });
       if (res.ok) {
@@ -90,7 +91,7 @@ export default function Network() {
 
   const handleDeclineRequest = async (userId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/network/decline/${userId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/network/decline/${userId}`, {
         method: 'POST', headers: { 'x-auth-token': token }
       });
       if (res.ok) loadNetworkData();
@@ -101,7 +102,7 @@ export default function Network() {
     if (selectedUser && activeTab === 'connections') {
       const fetchHistory = async () => {
         try {
-          const res = await fetch(`http://localhost:5000/api/messages/${selectedUser._id}`, {
+          const res = await fetch(`${API_BASE_URL}/api/messages/${selectedUser._id}`, {
             headers: { 
                 'x-auth-token': token,
                 'userid': currentUserId // Sending our ID to the backend route

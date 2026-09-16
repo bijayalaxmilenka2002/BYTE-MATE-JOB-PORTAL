@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import { useState, useEffect } from 'react';
 import ApplyModal from '../components/ApplyModal';
 
@@ -9,7 +10,7 @@ export default function Home() {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/jobs');
+        const response = await fetch(`${API_BASE_URL}/api/jobs`);
         if (response.ok) {
           const data = await response.json();
           setJobs(data);
