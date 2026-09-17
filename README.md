@@ -1,8 +1,25 @@
 # 🚀 Byte Mate – AI-Powered Job Portal
 
+[![Frontend on Vercel](https://img.shields.io/badge/Vercel-Frontend_Live-black?style=for-the-badge&logo=vercel)](https://byte-mate-job-portal.vercel.app)
+[![Backend on Render](https://img.shields.io/badge/Render-Backend_Live-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://byte-mate-backend.onrender.com)
+[![MongoDB Atlas](https://img.shields.io/badge/MongoDB_Atlas-Cloud_DB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://byte-mate-backend.onrender.com)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/bijayalaxmilenka2002/BYTE-MATE-JOB-PORTAL)
+
 Byte Mate is a full-stack MERN job portal application designed to streamline the hiring process for both employers and candidates. The platform features an AI-powered Applicant Tracking System (ATS), real-time messaging, secure authentication, and role-based dashboards for efficient recruitment management.
 
 Built using React.js, Node.js, Express.js, MongoDB, and Socket.io, Byte Mate provides a modern and scalable hiring ecosystem with intelligent resume analysis and seamless communication.
+
+---
+
+## 🌐 Live Deployments & Demo
+
+| Service | Platform | Status | Live Link |
+| :--- | :--- | :--- | :--- |
+| 💻 **Frontend Web App** | **Vercel** | 🟢 **Live** | [https://byte-mate-job-portal.vercel.app](https://byte-mate-job-portal.vercel.app) |
+| ⚙️ **Backend API & WebSockets** | **Render** | 🟢 **Live** | [https://byte-mate-backend.onrender.com](https://byte-mate-backend.onrender.com) |
+| 🗄️ **Database** | **MongoDB Atlas** | 🟢 **Connected** | Cloud-Hosted Multi-Region |
+
+> 💡 **Live Architecture:** The backend on Render powers the REST API and the real-time Socket.io chat server. The frontend is hosted on Vercel with automatic continuous deployment from GitHub.
 
 ---
 
@@ -41,6 +58,7 @@ The frontend is built using:
 * Resume upload interface
 * Real-time messaging system
 * Fast client-side rendering using Vite
+* Single-Page Application (SPA) routing via `vercel.json`
 
 ---
 
@@ -58,7 +76,6 @@ Built using:
 * JWT-based authentication
 * Password hashing using bcryptjs
 * Role-based access control for:
-
   * Candidates
   * Employers
 
@@ -101,7 +118,6 @@ One of the core features of Byte Mate is the AI-powered ATS engine.
 * Resumes are processed using `pdf-parse`
 * Raw text is extracted in memory
 * A custom NLP-based matching algorithm compares:
-
   * Resume skills
   * Job-required skills
 
@@ -111,10 +127,10 @@ The system instantly generates an AI Match Score to help employers shortlist can
 
 ### Benefits:
 
-✔️ Automated resume screening
-✔️ Faster hiring process
-✔️ Improved candidate-job matching
-✔️ Smart filtering system
+✔️ Automated resume screening  
+✔️ Faster hiring process  
+✔️ Improved candidate-job matching  
+✔️ Smart filtering system  
 
 ---
 
@@ -198,68 +214,58 @@ Used for:
 
 # 🔐 Key Features
 
-✔️ AI-powered ATS Resume Matching
-✔️ Full CRUD Job Management
-✔️ Secure JWT Authentication
-✔️ Role-Based Access Control
-✔️ Resume PDF Upload & Parsing
-✔️ Real-Time Messaging System
-✔️ RESTful API Architecture
-✔️ MVC Backend Structure
-✔️ Protected Routes & Middleware
-✔️ Responsive Modern UI
-✔️ Scalable Multi-Tenant Dashboard
+✔️ AI-powered ATS Resume Matching  
+✔️ Full CRUD Job Management  
+✔️ Secure JWT Authentication  
+✔️ Role-Based Access Control  
+✔️ Resume PDF Upload & Parsing  
+✔️ Real-Time Messaging System  
+✔️ RESTful API Architecture  
+✔️ MVC Backend Structure  
+✔️ Protected Routes & Middleware  
+✔️ Responsive Modern UI  
+✔️ Scalable Multi-Tenant Dashboard  
 
+---
 
-# 📂 Installation & Setup
+# 📂 Installation & Setup (Local Development)
 
 If someone wants to run the project locally:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/byte-mate.git
+git clone https://github.com/bijayalaxmilenka2002/BYTE-MATE-JOB-PORTAL.git
 
 # Navigate to project folder
-cd byte-mate
+cd BYTE-MATE-JOB-PORTAL
 
-# Install backend dependencies
+# 1. Setup Backend
+cd backend
 npm install
 
-# Navigate to frontend
-cd client
+# Create .env in backend directory:
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret_key
 
-# Install frontend dependencies
+# Start backend server
+npm run dev
+
+# 2. Setup Frontend (in a new terminal)
+cd ../frontend
 npm install
 
-# Create .env file and add:
-MONGO_URI=
-JWT_SECRET=
-PORT=
-```
+# Create .env in frontend directory:
+VITE_API_BASE_URL=http://localhost:5000
 
-Start Backend:
-
-```bash
-npm run server
-```
-
-Start Frontend:
-
-```bash
+# Start frontend dev server
 npm run dev
 ```
 
-Server will run on:
-
-```bash
-http://localhost:5000
-```
-
-Frontend will run on:
-
-```bash
-http://localhost:5173
-```
+- **Local Frontend:** `http://localhost:5173`
+- **Local Backend:** `http://localhost:5000`
+- **Production Frontend:** [https://byte-mate-job-portal.vercel.app](https://byte-mate-job-portal.vercel.app)
+- **Production Backend:** [https://byte-mate-backend.onrender.com](https://byte-mate-backend.onrender.com)
 
 ---
 
@@ -277,6 +283,7 @@ Through this project I learned:
 * Implementing secure backend architecture
 * Building responsive frontend interfaces
 * Structuring production-level applications using MVC
+* Deploying full-stack decoupled MERN applications to Render & Vercel
 
 ---
 
@@ -295,5 +302,6 @@ Through this project I learned:
 
 # 👨‍💻 Author
 
-**BIJAYALAXMI LENKA**
-MERN Stack Developer
+**BIJAYALAXMI LENKA**  
+MERN Stack Developer  
+GitHub: [@bijayalaxmilenka2002](https://github.com/bijayalaxmilenka2002)
